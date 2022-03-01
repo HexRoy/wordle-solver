@@ -1,5 +1,10 @@
 # Wordle Solver
 #   Geoffroy Penny
+import operator
+import os
+import sys
+import numpy
+from numpy import zeros
 
 # Uses a massive list of 5 letter words as the word bank from file
 words = open("word_list")
@@ -11,13 +16,15 @@ for line in words:
 all_not_in_word = set()
 all_in_word = set()
 
+
+# Uses known information to select next guess
 while True:
     # known: Letters you know the position of
     # known_not: Letters you know are in the word but unsure of position
     # not_in_word: Letters that you know are not in the word
     # in_word: Letters you know are in the word
     known = input("LETTERS ARE - use ? for unknown letters").upper()
-    known_not = input("LETTER CANT BE - use ? for others").upper()
+    known_not = input("LETTER IN WRONG SPOT - use ? for others").upper()
     not_in_word = set(list(input("enter letters not in word").upper()))
     in_word = list(input("enter letters in word").upper())
 
@@ -77,9 +84,61 @@ while True:
     all_in_word = set.union(all_in_word, in_word)
     all_not_in_word = set.union(all_not_in_word, not_in_word)
 
+    # Using most common positional scoring to select best word guess
+    # First calculate the scores for each letter in each position base on how common it is
+    letter_scoring = numpy.zeros((5, 26), dtype=int)
+    letter_to_position = {'A': 0,
+                          'B': 1,
+                          'C': 2,
+                          'D': 3,
+                          'E': 4,
+                          'F': 5,
+                          'G': 6,
+                          'H': 7,
+                          'I': 8,
+                          'J': 9,
+                          'K': 10,
+                          'L': 11,
+                          'M': 12,
+                          'N': 13,
+                          'O': 14,
+                          'P': 15,
+                          'Q': 16,
+                          'R': 17,
+                          'S': 18,
+                          'T': 19,
+                          'U': 20,
+                          'V': 21,
+                          'W': 22,
+                          'X': 23,
+                          'Y': 24,
+                          'Z': 25,
+                          }
+    for word in all_words:
+        i = 0
+        for letter in word:
+            letter_scoring[i][letter_to_position[letter]] += 1
+            i += 1
+
+    # Second find word scores using previously calculated values
+    best_choice = {}
+    for word in all_words:
+        total = 0
+        i = 0
+        for letter in word:
+            total += letter_scoring[i][letter_to_position[letter]]
+            i += 1
+        best_choice[word] = total
+    sorted_choices = sorted(best_choice.items(), key=operator.itemgetter(1), reverse=True)
+
     # For the user
-    print(all_words)
+    # print("letter scoring \n", letter_scoring)
+
+    print(sorted_choices)
     print("confirmed letters", known)
     print("letters in word, wrong spot", known_not)
     print("letters not in word", all_not_in_word)
     print("letters in word", all_in_word)
+    print("best guess", sorted_choices[0][0])
+
+
