@@ -1,0 +1,64 @@
+GuiManager:
+    HomeGui:
+
+
+<HomeGui>:
+    letter1: input1
+    letter2: input2
+    letter3: input3
+    letter4: input4
+    letter5: input5
+    directions: directions
+
+    Label:
+        text: "Wordle Solver"
+        pos_hint: {"x": 0, "y": .45}
+        font_size: 55
+    Label:
+        id: directions
+        text: "Enter greens, then press greens"
+        pos_hint: {"x": 0, "y": .35}
+        font_size: 40
+
+    BoxLayout:
+        pos_hint: {"x": 0, "y": .60}
+        orientation: 'horizontal'
+        CharInput:
+            focus: True
+            size_hint: .1, .2
+            font_size: 100
+            id: input1
+        CharInput:
+            size_hint: .1, .2
+            font_size: 100
+            id: input2
+        CharInput:
+            size_hint: .1, .2
+            font_size: 100
+            id: input3
+        CharInput:
+            size_hint: .1, .2
+            font_size: 100
+            id: input4
+        CharInput:
+            size_hint: .1, .2
+            font_size: 100
+            id: input5
+    BoxLayout:
+        pos_hint: {"x": 0, "y": .40}
+        Button:
+            text: "Greens"
+            size_hint: .2, .2
+            on_press: root.enter_greens()
+        Button:
+            text: "Yellows"
+            size_hint: .2, .2
+            on_press: root.enter_word()
+        Button:
+            text: "Greys"
+            size_hint: .2, .2
+            on_press: root.enter_word()
+        Button:
+            text: "Calculate Best Word"
+            size_hint: .2, .2
+            on_press: root.enter_word()

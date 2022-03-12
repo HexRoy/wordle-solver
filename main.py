@@ -1,10 +1,7 @@
 # Wordle Solver
 #   Geoffroy Penny
 import operator
-import os
-import sys
 import numpy
-from numpy import zeros
 
 # Uses a massive list of 5 letter words as the word bank from file
 words = open("word_list")
@@ -133,12 +130,9 @@ while True:
 
     # For the user
     # print("letter scoring \n", letter_scoring)
-
     print(sorted_choices)
     print("confirmed letters", known)
     print("letters in word, wrong spot", known_not)
     print("letters not in word", all_not_in_word)
     print("letters in word", all_in_word)
     print("best guess", sorted_choices[0][0])
-
-
