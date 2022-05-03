@@ -9,6 +9,9 @@ GuiManager:
     letter4: input4
     letter5: input5
     directions: directions
+    choice1: choice_1
+    choice2: choice_2
+    choice3: choice_3
 
     Label:
         text: "Wordle Solver"
@@ -53,12 +56,31 @@ GuiManager:
         Button:
             text: "Yellows"
             size_hint: .2, .2
-            on_press: root.enter_word()
+            on_press: root.enter_yellows()
         Button:
             text: "Greys"
             size_hint: .2, .2
-            on_press: root.enter_word()
+            on_press: root.enter_greys()
         Button:
             text: "Calculate Best Word"
             size_hint: .2, .2
-            on_press: root.enter_word()
+            on_press: root.find_choice()
+
+    Label:
+        id: choice_1
+        text: ""
+        pos_hint: {"x": -.3, "y": -.20}
+        font_size: 33
+    Label:
+        id: choice_2
+        text: ""
+        pos_hint: {"x": -.3, "y": -.30}
+        font_size: 33
+    Label:
+        id: choice_3
+        text: ""
+        pos_hint: {"x": -.3, "y": -.40}
+        font_size: 33
+
+
+
