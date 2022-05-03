@@ -13,6 +13,13 @@ GuiManager:
     choice2: choice_2
     choice3: choice_3
 
+
+    Button:
+        text: "New Game"
+        size_hint: .2, .2
+        pos_hint: {"x": .8, "y": .0}
+        on_press: root.new_game()
+
     Label:
         text: "Wordle Solver"
         pos_hint: {"x": 0, "y": .45}
@@ -81,6 +88,7 @@ GuiManager:
         text: ""
         pos_hint: {"x": -.3, "y": -.40}
         font_size: 33
+
 
 
 

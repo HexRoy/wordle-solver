@@ -51,7 +51,6 @@ class HomeGui(Screen):
         self.all_not_in_word = set()
         self.all_in_word = set()
         self.green = "?????"
-        self.yellow = ""
         self.not_in_word = ""
         self.in_word = ""
 
@@ -89,7 +88,9 @@ class HomeGui(Screen):
             self.green = ("".join(temp)).upper()
             self.update_word_bank_green()
 
+        print(self.all_words)
         self.clear_text_input()
+
 
     def update_word_bank_green(self):
         word_index = 0
@@ -103,6 +104,7 @@ class HomeGui(Screen):
                         break
                 known_letter_pos += 1
             word_index += 1
+
 
     def enter_yellows(self):
         yellow_input = ""
@@ -221,6 +223,22 @@ class HomeGui(Screen):
         self.letter4.text = ""
         self.letter5.text = ""
 
+    def new_game(self):
+        self.words = open("word_list")
+        self.all_words = ""
+        self.all_not_in_word = set()
+        self.all_in_word = set()
+        self.green = "?????"
+        self.not_in_word = ""
+        self.in_word = ""
+        self.choice1.text = ""
+        self.choice2.text = ""
+        self.choice3.text = ""
+
+        # Transforms the words into a list
+        for line in self.words:
+            self.all_words = line.split(" ")
+        print(self.all_words)
 # ==========================================================================================
 #       Gui Manager:
 # ==========================================================================================
