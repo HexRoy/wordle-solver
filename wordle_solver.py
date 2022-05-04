@@ -50,7 +50,8 @@ class HomeGui(Screen):
         self.all_words = ""
         self.all_not_in_word = set()
         self.all_in_word = set()
-        self.green = "?????"
+        self.green = ""
+        self.yellow = ""
         self.not_in_word = ""
         self.in_word = ""
 
@@ -61,36 +62,34 @@ class HomeGui(Screen):
 
     def enter_greens(self):
         # Narrowing the word bank using the known positions of letters
+        green_input = ""
         if self.letter1.text != " " and self.letter1.text != "" and self.letter1.text != "	":
-            temp = list(self.green)
-            temp[0] = self.letter1.text
-            self.green = ("".join(temp)).upper()
-            print(self.green)
-            self.update_word_bank_green()
+            green_input += self.letter1.text.upper()
+        else:
+            green_input += "?"
         if self.letter2.text != " " and self.letter2.text != "" and self.letter2.text != "	":
-            temp = list(self.green)
-            temp[1] = self.letter2.text
-            self.green = ("".join(temp)).upper()
-            self.update_word_bank_green()
+            green_input += self.letter2.text.upper()
+        else:
+            green_input += "?"
         if self.letter3.text != " " and self.letter3.text != "" and self.letter3.text != "	":
-            temp = list(self.green)
-            temp[2] = self.letter3.text
-            self.green = ("".join(temp)).upper()
-            self.update_word_bank_green()
+            green_input += self.letter3.text.upper()
+        else:
+            green_input += "?"
         if self.letter4.text != " " and self.letter4.text != "" and self.letter4.text != "	":
-            temp = list(self.green)
-            temp[3] = self.letter4.text
-            self.green = ("".join(temp)).upper()
-            self.update_word_bank_green()
+            green_input += self.letter4.text.upper()
+        else:
+            green_input += "?"
         if self.letter5.text != " " and self.letter5.text != "" and self.letter5.text != "	":
-            temp = list(self.green)
-            temp[4] = self.letter5.text
-            self.green = ("".join(temp)).upper()
-            self.update_word_bank_green()
+            green_input += self.letter5.text.upper()
+        else:
+            green_input += "?"
+
+        self.green = green_input
+
+        self.update_word_bank_green()
 
         print(self.all_words)
         self.clear_text_input()
-
 
     def update_word_bank_green(self):
         word_index = 0
@@ -104,7 +103,6 @@ class HomeGui(Screen):
                         break
                 known_letter_pos += 1
             word_index += 1
-
 
     def enter_yellows(self):
         yellow_input = ""
@@ -128,6 +126,8 @@ class HomeGui(Screen):
             yellow_input += self.letter5.text.upper()
         else:
             yellow_input += "?"
+
+        self.yellow = yellow_input
 
         # Remove every word with yellow in that position
         word_index = 0
@@ -155,7 +155,6 @@ class HomeGui(Screen):
 
         print(self.all_words)
         self.clear_text_input()
-
 
     def enter_greys(self):
         # Narrowing the word bank using letters not in the word
@@ -185,6 +184,10 @@ class HomeGui(Screen):
         self.clear_text_input()
 
     def find_choice(self):
+        # Resetting the previous information from the last guess
+        self.green = ""
+        self.yellow = ""
+
         # Creating a set of letters in, and not in the word
         self.all_in_word = set.union(self.all_in_word, self.in_word)
         self.all_not_in_word = set.union(self.all_not_in_word, self.not_in_word)
